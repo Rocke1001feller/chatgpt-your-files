@@ -4,8 +4,12 @@ import { codeBlock } from 'common-tags';
 import OpenAI from 'openai';
 import { Database } from '../_lib/database.ts';
 
+// const openai = new OpenAI({
+//   apiKey: Deno.env.get('OPENAI_API_KEY'),
+// });
 const openai = new OpenAI({
-  apiKey: Deno.env.get('OPENAI_API_KEY'),
+  baseURL: 'http://host.docker.internal:11434/v1/',
+  apiKey: 'ollama',
 });
 
 // These are automatically injected
@@ -116,7 +120,7 @@ Deno.serve(async (req) => {
     ];
 
   const completionStream = await openai.chat.completions.create({
-    model: 'gpt-3.5-turbo-0613',
+    model: 'llama3',
     messages: completionMessages,
     max_tokens: 1024,
     temperature: 0,
